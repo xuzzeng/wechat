@@ -1,0 +1,65 @@
+<layout name="../../Common/View/Layout/bootstrap_layout"  replace="{__CONTENT__}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<script type="text/javascript" src="{$CDN_PATH}__JS__/module/Inspector/common.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{$CDN_PATH}__JS__/module/Inspector/viewapp.js" charset="UTF-8"></script>
+<input type="hidden" name="flag" id="flag" value="{$flag}"/>
+<?php $CDN_PATH = C('CDN_PATH');?>
+<div class="container">
+    <div class="row ">
+
+        <div class="col-md-3 bs-docs-sidebar">
+            <include file="./Application/Inspector/Common/View/Layout/leftbar.html" />
+
+        </div>
+
+        <div class="col-md-9 " role='main'>
+            <div class="row">
+                <div class="col-md-12 " >
+                    <div class="row ">
+                        <div class="col-md-3 ">
+                            <div class="input-group">
+<!--                                <div class="input-group-addon">$</div>-->
+                                <input type="text" class="form-control" id="exampleInputAmount" placeholder="搜索">
+                                <div class="input-group-addon" style="cursor: pointer"><span class="glyphicon glyphicon-search"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <br>
+                    <table class="table table-hover">
+                        <thead style="background-color:#629db5">
+                          
+                        <th>姓名</th>   
+                        <th>性别</th>
+                        <th>医院</th>
+                        <th>诊断专家</th>
+                        <th>诊断费用</th>
+                         <th>检查日期</th>
+                        
+                        </thead>
+                        <volist name="waitInspector" id="inspector">
+                            <tr class="info" style="cursor: pointer" onclick="inspector.trClick(this)"value="{$inspector.id}" href="<?php echo U('inspector/waitadd/viewApp/id/'.$inspector['id'])?>">                    
+                                    <td class="p2" > {$inspector.patient_cname}</td> 
+                                    <td>
+                                        <if condition="($inspector.patient_sex eq F)  "> 女
+                                        <elseif condition="$inspector.patient_sex  eq M"/>男
+                                        <else /> 
+                                    </if>  
+                            </td>
+                                    <td class="p2" > {$inspector.patient_hospitalname}</td>  
+                                    <td class="p2" > {$inspector.expert_name}</td>  
+                                    <td class="p2" > {$inspector.fee}</td>  
+                                    <td class="p2" >{$inspector.createtime}</td> 
+                                </tr>
+                        </volist>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+            
+
+    </script>

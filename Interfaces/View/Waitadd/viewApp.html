@@ -1,0 +1,123 @@
+<layout name="../../Common/View/Layout/bootstrap_layout"  replace="{__CONTENT__}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<script type="text/javascript" src="{$CDN_PATH}__JS__/module/Inspector/common.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{$CDN_PATH}__JS__/module/Inspector/viewapp.js" charset="UTF-8"></script>
+<input type="hidden" name="flag" id="flag" value="{$flag}"/>
+<input type="hidden" name="id" id="id" value="{$appEntity.id}"/>
+<?php $CDN_PATH = C('CDN_PATH');?>
+<div class="container">
+    <div class="row ">
+
+        <div class="col-md-3 bs-docs-sidebar">
+              <include file="./Application/Inspector/Common/View/Layout/leftbar.html" />
+
+        </div>
+
+        <div class="col-md-9 " role='main'>
+            <div class="row">
+                <div class="col-md-12 " >
+                   
+                    <br>
+                    <table class="table table-condensed table-responsive">
+                        <colgroup>
+                        <col style="width:10%;min-width: 300px">
+                        <col style>
+                    </colgroup>
+                    <tr>
+                        <td>患者</td>
+                        <td>
+                            {$patient.cname},&nbsp;&nbsp;
+                           
+                                <if condition="($patient.sex eq F)  "> 女
+                                    <elseif condition="$patient.sex  eq M"/>男
+                                    <else /> 
+                                </if>,&nbsp;&nbsp;                         
+                            {$patient.age}岁,&nbsp;&nbsp;
+                            {$patientHospital.name}&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>申请</td>
+                        <td>
+                                  {$technician['name']?$technician['name']:$patient['cname']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>专家</td>
+                        <td>
+                            {$expert.name},&nbsp;&nbsp;
+                            
+                                <if condition="($expert.sex eq F)  "> 女
+                                    <elseif condition="$expert.sex  eq M"/>男
+                                    <else /> 
+                                </if>,&nbsp;&nbsp;                
+                            {$expertHosptital.name},&nbsp;&nbsp;
+                            {$expert.tel}&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                     <volist name="dicom" id="dico">
+                    <tr>
+                        <td>影像链接</td>
+                        <td>
+                          <a href = "<?php echo \Common\Service\DicomService::getOviyam($dico['dcmip'], $dico['uuid']); ?>" target="_blank" class="btn" >欧唯雅</a>
+                            <a href = "<?php echo \Common\Service\DicomService::getWeasis($dico['dcmip'], $dico['uuid']); ?>" class="btn">一脉影像</a>
+<!--                            <a href = "http://117.41.184.222/pkg_pacs/external_interface.aspx?LID=med&LPW=med&PID=${dico.hospitalpatientid}&studyUID={$dico.uuid}"  target="_blank" class="btn">英飞达</a><br>-->
+
+                        </td>
+                    </tr>  
+                    </volist>
+                     <tr>
+                        <td>病情描述</td>
+                        <td>{$appEntity.description}</td>
+                    </tr>
+                    <tr>
+                        <td>检查所见</td>
+                        <td>
+                            <textarea style="width: 100%" name='view' id='view' >{$report.view}</textarea>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>诊断意见</td>
+                        <td>
+                            <textarea style="width: 100%" name='report' id='report' >{$report.report}</textarea>
+                        </td>
+                    </tr>
+                    <volist name="comment" id="co">
+                     <tr>
+                        <td>补充记录</td>
+                        <td>
+                            职位：{$co.role_desc}&nbsp;&nbsp;
+                            姓名：{$co.expert_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            时间：{$co.create_time}<br /><br/>
+                            描述：{$co.comment}<br />
+                        </td>
+                    </tr>
+                    </volist>
+<!--                    <tr>
+                        <td style="color:red">
+                            如果专家报告有疑问，请写明原因退回！
+                        </td>
+                        <td>
+                            <textarea style="width:100%" name='information' rows='5' id='information'></textarea>
+                        </td>
+                    </tr>
+                          <tr>
+                    <span> <input  id='tihuan' type='hidden' value="1" name='submits' /></span>-->
+<!--                    <td colspan="2" align='center'>
+                        <form action="<?php echo U('inspector/Waitinspector/toConfirm/id/'.$appEntity['id']) ?>" method="POST" name="toConfirm" id="toConfirm">
+                        <button class="btn btn-success" id="back">返&nbsp;&nbsp;回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <input class="btn btn-danger" type='submit' id="ongo"  value='提&nbsp;&nbsp;交' name='goto' />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" href="<?php echo U('inspector/Waitinspector/backExpert'); ?>" class="btn btn-success" id="addInspectorInformation" value="补充信息"/>
+                        </form>
+                        
+                      
+
+                    </td>-->
+                    </tr>    
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div> 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><?php $CDN_PATH = C('CDN_PATH');?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0,height=device-height,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="pics/icon.png"/>
+        <link rel="apple-touch-icon-precomposed" href="pics/icon.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="jquery/favicon.ico" />
+        <link rel='stylesheet' href='{$CDN_PATH}__CSS__/jquery/jquery.min.css'/>
+        <script type="text/javascript" src="{$CDN_PATH}__PUBLIC__/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="{$CDN_PATH}__PUBLIC__/js/jquery/jquery.mobile.min.js"></script>
+        <script>
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="index" data-fullscreen="true" >
+            <div data-role="content" class="content" >
+                <div  style="max-width:400px; margin: auto;">
+                        <?php echo '<ul data-role="listview" data-filter="true" data-filter-placeholder="输入关键字" data-inset="true" class="ui-mini">';?>
+                    <volist name="viewData" id="hospital" key="index">
+                        <?php
+                            $AETs="";
+                          if (count($hospital['aet'])==1 ){
+                                  echo "<li><a href=\"http://" . $hospital['nfsip'] . "/imageList/dateList_Fenyi.php?software=". $software . "&aetitle=". $hospital['aet'][0]['aet'] .'">'. $hospital['hospital_name'] . "</a></li>";
+                            //echo "<li><a href='" . "'>" . $hospital['aet'][0]['aet'] . "</a></li>";
+                            }
+                          else {
+                            foreach($hospital['aet'] as $AETIndex => $AETvalue) {
+                                $AETs = $AETs . "-" . $AETvalue['aet'];
+                            }   
+                            //echo $AETs;
+                                echo "<li><a href=\"http://" . $hospital['nfsip'] . "/imageList/dateListMultiAET.php?software=". $software . "&aetitles=". $AETs .'">'. $hospital['hospital_name'] . "</a></li>";
+
+                          }
+                            ?>
+                    </volist>
+                        <?php echo "</ul>";?>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
